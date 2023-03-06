@@ -99,6 +99,11 @@
       "environment": {
         "DISABLE_WAYLAND": 1
       },
+      "stagePackages": [
+        "default",
+        "libpipewire-0.3-0",
+        "libdrm2"
+      ],
       "plugs": [
         "default",
         "camera",
