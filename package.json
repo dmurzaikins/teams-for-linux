@@ -48,9 +48,9 @@
     "yargs": "17.5.1"
   },
   "devDependencies": {
-    "@davidwinter/electron-forge-maker-snap": "^2.0.7",
     "electron": "^21.0.1",
     "electron-builder": "23.3.3",
+    "electron-installer-snap": "^5.2.0",
     "eslint": "8.24.0",
     "yarn": "1.22.19"
   },
