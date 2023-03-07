@@ -105,7 +105,6 @@
         "libdrm2"
       ],
       "plugs": [
-        "default",
         "camera",
         "screen-inhibit-control",
         "wayland",
