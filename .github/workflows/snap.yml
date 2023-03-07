@@ -28,15 +28,21 @@ jobs:
       - name: Build
         run: yarn --link-duplicates --pure-lockfile
 
+      - name: Add snap
+        run: yarn add --dev electron-installer-snap
+
       - name: Release
-        run: yarn dist:linux:snap
+        run: yarn build:package
         
+      - name: Release
+        run: yarn build:snap
+
       - name: Upload
         uses: xresloader/upload-to-github-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          file: "dist/*.snap"
+          file: "out/t4l-linux-x64/*.snap"
           draft: true
           verbose: true
   
