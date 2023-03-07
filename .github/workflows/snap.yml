@@ -1,6 +1,8 @@
 name: Snap Build
 
-on: push
+on: 
+  workflow_dispatch:
+  push:
 
 defaults:
   run:
@@ -29,9 +31,17 @@ jobs:
         run: yarn --link-duplicates --pure-lockfile
 
       - name: Release
-        if: contains(github.ref, 'develop')
-        run: yarn dist:linux:snap --publish always
-
+        run: yarn dist:linux:snap
+        
+      - name: Upload
+        uses: xresloader/upload-to-github-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          file: "dist/*.snap"
+          draft: true
+          verbose: true
+  
   snap-armv7l:
     runs-on: ubuntu-latest
 
