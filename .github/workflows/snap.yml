@@ -31,9 +31,7 @@ jobs:
       - name: Add snap
         run: yarn add --dev electron-installer-snap
 
-      - name: Release
-        run: yarn build:package
-        
+
       - name: Release
         run: yarn build:snap
 
