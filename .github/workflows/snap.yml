@@ -1,6 +1,8 @@
 name: Snap Build
 
-on: push
+on: 
+  workflow_dispatch:
+  push:
 
 defaults:
   run:
@@ -13,25 +15,35 @@ jobs:
 
     steps:
       - name: Install Snapcraft
-        uses: samuelmeuli/action-snapcraft@v1
-        with:
-          snapcraft_token: ${{ secrets.snapcraft_token }}
+        uses: samuelmeuli/action-snapcraft@v2.1.1
 
       - name: Check out Git repository
         uses: actions/checkout@v2
 
       - name: Install Node.js, NPM and Yarn
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: 14
 
       - name: Build
         run: yarn --link-duplicates --pure-lockfile
 
-      - name: Release
-        if: contains(github.ref, 'develop')
-        run: yarn dist:linux:snap --publish always
+      - name: Add snap
+        run: yarn add --dev electron-installer-snap
 
+
+      - name: Release
+        run: yarn build:snap
+
+      - name: Upload
+        uses: xresloader/upload-to-github-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          file: "out/t4l-linux-x64/*.snap"
+          draft: true
+          verbose: true
+  
   snap-armv7l:
     runs-on: ubuntu-latest
 
