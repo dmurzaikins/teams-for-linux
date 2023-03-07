@@ -15,9 +15,7 @@ jobs:
 
     steps:
       - name: Install Snapcraft
-        uses: samuelmeuli/action-snapcraft@v1
-        with:
-          snapcraft_token: ${{ secrets.snapcraft_token }}
+        uses: samuelmeuli/action-snapcraft@v2.1.1
 
       - name: Check out Git repository
         uses: actions/checkout@v2
